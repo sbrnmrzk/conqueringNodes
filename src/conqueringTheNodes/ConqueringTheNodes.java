@@ -9,7 +9,7 @@ public class ConqueringTheNodes extends Application {
   public void start(Stage primaryStage) {
        
     //5 hardcoded, should be 'n' input
-    Nodes nodes = new Nodes(5);
+    Nodes nodes = new Nodes(50);
     Points[] vertices = nodes.getPoints();
     
     //3 is t, 5 is m inputs hardcoded

@@ -14,6 +14,7 @@ import java.util.*;
 public class Nodes {
     private int noOfNodes;
     private Points[] points;
+    private static final float max = 1000, min = 1;
     
     Nodes(){
         
@@ -22,33 +23,15 @@ public class Nodes {
     Nodes(int noOfNodes){
         this.noOfNodes = noOfNodes;
         
-        //hardcoded example, edited abit -F
-        Points[] points = {
-            new Points("A", 100, 200),
-            new Points("B", 200, 300),
-            new Points("C", 300, 400),
-            new Points("D", 650, 650),
-            new Points("E", 500 , 600),
-            new Points("F", 75, 50),
-            new Points("G", 50, 210),
-            new Points("H", 75, 275), 
-            new Points("I", 275, 175),
-            new Points("J", 400, 245),
-            new Points("K", 450, 100), 
-            new Points("L", 700, 80),
-            new Points("M", 675, 120), 
-            new Points("N", 575, 295),
-            new Points("O", 600, 400), 
-            new Points("P", 408, 325),
-            new Points("Q", 450, 360) 
-        };
-        
-        //bawah ni format example to generate
-        //        Points [] points = new Points[this.noOfNodes];
-        //        for(int i=0; i<noOfNodes; i++){
-        //            //randomly generate x and y
-        //
-        //        }
+        this.points = new Points[noOfNodes];
+
+        for (int i = 0; i < noOfNodes; i ++) {
+          points[i] = new Points(
+//                  Character.toString((char) (i + 'A')), 
+                  Integer.toString(i+1), 
+                  (float) (Math.random() * max) - min, 
+                  (float) (Math.random() * max) - min);
+        }
         this.points=points;
     }
     

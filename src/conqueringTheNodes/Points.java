@@ -10,22 +10,22 @@ package conqueringTheNodes;
  * @author Admin
  */
 public class Points implements Displayable{
-    private int x, y;
+    private float x, y;
     private String name;
     
-    Points(String name, int x, int y){
+    Points(String name, float x, float y){
         this.x = x;
         this.y = y;
         this.name = name;
     }
     
     @Override
-    public int getX() {
+    public float getX() {
         return this.x;
     }
 
     @Override
-    public int getY() {
+    public float getY() {
         return this.y;
     }
 
