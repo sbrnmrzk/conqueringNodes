@@ -8,7 +8,7 @@ public class ConqueringTheNodes extends Application {
   @Override // Override the start method in the Application class
   public void start(Stage primaryStage) {
        
-    //5 hardcoded, should be 'n' input
+    //50 hardcoded, should be 'n' input
     Nodes nodes = new Nodes(50);
     Points[] vertices = nodes.getPoints();
     
@@ -19,7 +19,7 @@ public class ConqueringTheNodes extends Application {
     Graph<Points> graph = new UnweightedGraph<>(vertices, connectors);
 
     // Create a scene and place it in the stage
-    Scene scene = new Scene(new GraphView(graph), 800, 800); //should be 1000x1000 kan? (fariz)
+    Scene scene = new Scene(new GraphView(graph), 1100, 1100); //should be 1000x1000 kan? (fariz)
     primaryStage.setTitle("ConqueringTheNodes"); // Set the stage title
     primaryStage.setScene(scene); // Place the scene in the stage
     primaryStage.show(); // Display the stage
