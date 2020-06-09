@@ -11,20 +11,30 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  *
  * @author Admin
  */
-public class NodesController implements Initializable {
+public class InputController implements Initializable {
     
     @FXML
-    private Label label;
+    private TextField n;
     
     @FXML
-    private void handleButtonAction(ActionEvent event) {
+    private TextField t;
+    
+    @FXML
+    private TextField m;
+    
+    @FXML
+    private void changeScene(ActionEvent event) {
         System.out.println("You clicked me!");
-        label.setText("Hello World!");
+        int n = Integer.parseInt(this.n.getText());
+        int t = Integer.parseInt(this.t.getText());
+        int m = Integer.parseInt(this.m.getText());
+        
     }
     
     @Override

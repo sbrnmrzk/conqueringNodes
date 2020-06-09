@@ -17,16 +17,19 @@ import javafx.stage.Stage;
  */
 public class ConqueringTheNodes extends Application {
     
+    Stage window;
+    Scene input, graph;
+    
     @Override
     public void start(Stage stage) throws Exception {
-//        Parent root = FXMLLoader.load(getClass().getResource("NodesFXML.fxml"));
-//        
-//        Scene scene = new Scene(root);
-//        
-//        stage.setScene(scene);
-//        stage.show();
-        
-               
+//        window = stage;
+//        Parent root = FXMLLoader.load(getClass().getResource("InputFXML.fxml"));
+//        this.input = new Scene(root);
+////       //        
+//       stage.setScene(this.input);
+//       stage.show();
+////        
+//               
     //50 hardcoded, should be 'n' input
     Nodes nodes = new Nodes(50);
     Points[] vertices = nodes.getPoints();
