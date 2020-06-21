@@ -14,6 +14,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  *
@@ -30,7 +31,7 @@ public class Edges{
     Edges(){
     }
     
-    Edges(Nodes nodes, int t, int m){
+   Edges(Nodes nodes, int t, int m) throws InterruptedException, ExecutionException{
         this.nodes = nodes;
         this.t = t;
         this.m = m;
@@ -43,8 +44,18 @@ public class Edges{
         // GET AMOUNT OF THREADS (t), LOOP TO CREATE A NEW THREAD -F
         for (int i = 1; i <= t; i++) {
             Future<String> finalString = executor.submit(new EdgeThread(i, nodes));
-            resultList.add(finalString); // basically add the final string using Future. -F
+               try {
+            System.out.println("Started..");
+            finalString.get(m, TimeUnit.SECONDS);
+            System.out.println("Finished!");
+        } catch (TimeoutException e) {
+            finalString.cancel(true);
+            System.out.println("Terminated!");
         }
+            resultList.add(finalString); // basically add the final string using Future. -F
+         
+        }
+        
         
         // conversion of the result received from future to string -F
         for (int i = 0; i < resultList.size(); i++) {
@@ -66,7 +77,7 @@ public class Edges{
         
         System.out.println("Final String is = " + finalString);
         try {
-            executor.awaitTermination(10, TimeUnit.MINUTES); // not sure about this, maybe timer? -F
+            executor.awaitTermination(m, TimeUnit.SECONDS); // not sure about this, maybe timer? -F
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }
@@ -111,7 +122,7 @@ public class Edges{
 //        }
 //
 //        executorService.shutdown();
-////        executorService.awaitTermination(60, TimeUnit.SECONDS);
+//       executorService.awaitTermination(60, TimeUnit.SECONDS);
 //
 //        System.out.println("Final count is : " + synchronizedCounter.getString());
         

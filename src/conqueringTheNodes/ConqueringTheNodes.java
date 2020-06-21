@@ -22,11 +22,13 @@ public class ConqueringTheNodes extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         window = stage;
         Parent root = FXMLLoader.load(getClass().getResource("InputFXML.fxml"));
         this.input = new Scene(root);
         stage.setScene(this.input);
         stage.show();
+
     }
 
     /**
