@@ -35,30 +35,9 @@ public class ConqueringTheNodes extends Application {
     Points[] vertices = nodes.getPoints();
     
     //3 is t, 5 is m inputs hardcoded
-    Edges edges = new Edges(nodes, 3, 5);
+    Edges edges = new Edges(nodes, 3, 1);
     int[][] connectors = edges.getEdges();
     
-     //timer 
-    
-    
-    System.out.println("Task scheduled.");
-    EdgeTimer edgetimer = new EdgeTimer(3);
-    
- 
-    long elapsedTime = System.currentTimeMillis(); 
-    long elapsedSeconds = elapsedTime / 1000;
-    long secondsDisplay = elapsedSeconds % 60;
-    long elapsedMinutes = elapsedSeconds / 60;
-
-
-    //time elapsed broken down into hours, minutes and seconds
-    int hours = (elapsedMinutes>59) ? (int) elapsedMinutes/60 : 0;
-    int minutes = (elapsedMinutes>59) ? (int) elapsedMinutes%60 : (int)elapsedMinutes;
-    int seconds = (elapsedSeconds>59) ? (int) elapsedSeconds%60 : (int) elapsedSeconds;
-
-    //display elapsed time in readable format to user
-    System.out.println("Time elapsed: "+ hours + " hours, " + minutes + " minutes and " + seconds + " seconds");              			
-			
 
     Graph<Points> graph = new UnweightedGraph<>(vertices, connectors);
 
