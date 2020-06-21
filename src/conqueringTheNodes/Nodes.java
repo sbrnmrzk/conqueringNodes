@@ -6,6 +6,7 @@
 package conqueringTheNodes;
 
 import java.util.*;
+import java.util.stream.*;
 
 /**
  *
@@ -20,20 +21,29 @@ public class Nodes {
         
     }
     
-    Nodes(int noOfNodes){
-        this.noOfNodes = noOfNodes;
-        
-        this.points = new Points[noOfNodes];
+    Nodes(int noOfNodes) {
+            Random random = new Random();
 
-        for (int i = 0; i < noOfNodes; i ++) {
-          points[i] = new Points(
-//                  Character.toString((char) (i + 'A')), 
-                  Integer.toString(i+1), 
-                  (float) (Math.random() * max) - min, 
-                  (float) (Math.random() * max) - min);
+            List<Integer> positions = IntStream.rangeClosed(0, 1000)
+                    .boxed()
+                    .collect(Collectors.toList());
+
+            this.noOfNodes = noOfNodes;
+
+            this.points = new Points[noOfNodes];
+
+            for (int i = 0; i < noOfNodes; i ++) {
+                if (positions.size() < 2) {
+                    throw new IllegalStateException("No more positions available.");
+                }
+                float first = positions.remove(random.nextInt(positions.size()));
+                
+                float second = positions.remove(random.nextInt(positions.size()));
+
+                points[i] = new Points(Integer.toString(i+1), first, second);
+            }
+            this.points = points;
         }
-        this.points=points;
-    }
     
     public Points [] getPoints(){
         return this.points;
