@@ -54,6 +54,7 @@ public class InputController implements Initializable {
     }
 
     private void changeScene(ActionEvent event) {
+        try{
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Nodes nodes = new Nodes(this.points);
         Points[] vertices = nodes.getPoints();
@@ -66,6 +67,9 @@ public class InputController implements Initializable {
         stage.setTitle("Graph of nodes"); // Set the stage title
         stage.setScene(scene); // Place the scene in the stage
         stage.show(); // Display the stage
+        }catch(Exception e){
+            System.out.println("error: " + e);
+        }
     }
 
     @Override

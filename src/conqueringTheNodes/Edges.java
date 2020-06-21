@@ -20,43 +20,41 @@ import java.util.concurrent.TimeoutException;
  *
  * @author Admin
  */
-public class Edges{
+public class Edges {
 
     private Nodes nodes;
     private int t;
-    private int[][]edges;
+    private int[][] edges;
     private int m;
-    
-    
-    Edges(){
+
+    Edges() {
     }
-    
-   Edges(Nodes nodes, int t, int m) throws InterruptedException, ExecutionException{
+
+    Edges(Nodes nodes, int t, int m) throws InterruptedException, ExecutionException {
         this.nodes = nodes;
         this.t = t;
         this.m = m;
         String string = "";
-        
+
         List<Future<String>> resultList = new ArrayList<>();
-        
+
         ExecutorService executor = Executors.newFixedThreadPool(t);
-        
+
         // GET AMOUNT OF THREADS (t), LOOP TO CREATE A NEW THREAD -F
         for (int i = 1; i <= t; i++) {
             Future<String> finalString = executor.submit(new EdgeThread(i, nodes));
-               try {
-            System.out.println("Started..");
-            finalString.get(m, TimeUnit.SECONDS);
-            System.out.println("Finished!");
-        } catch (TimeoutException e) {
-            finalString.cancel(true);
-            System.out.println("Terminated!");
-        }
+            try {
+                System.out.println("Started..");
+                finalString.get(m, TimeUnit.SECONDS);
+                System.out.println("Finished!");
+            } catch (TimeoutException e) {
+                finalString.cancel(true);
+                System.out.println("Terminated!");
+            }
             resultList.add(finalString); // basically add the final string using Future. -F
-         
+
         }
-        
-        
+
         // conversion of the result received from future to string -F
         for (int i = 0; i < resultList.size(); i++) {
             Future<String> result = resultList.get(i);
@@ -67,96 +65,43 @@ public class Edges{
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-        } 
-        
+        }
+
         executor.shutdown();
-        
-        
+
         // remove the last ", {" because it was looped, so the final one shouldn't have that -F
         String finalString = string.substring(0, string.length() - 2);
-        
+
         System.out.println("Final String is = " + finalString);
         try {
             executor.awaitTermination(m, TimeUnit.SECONDS); // not sure about this, maybe timer? -F
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }
-        
-        
+
         String test = "";
-        
-        finalString = finalString.replace("{",""); //replacing all { to "" -F
-        finalString = finalString.substring(0,finalString.length()-1); //ignoring last } -F
+
+        finalString = finalString.replace("{", ""); //replacing all { to "" -F
+        finalString = finalString.substring(0, finalString.length() - 1); //ignoring last } -F
         String edge[] = finalString.split("},"); //separating all by "}," -F
-        
+
         int final_edge[][] = new int[edge.length][edge.length];
-        
-        for (int i = 0; i<edge.length; i++) {
+
+        for (int i = 0; i < edge.length; i++) {
             edge[i] = edge[i].trim();
             String single_int[] = edge[i].split(", ");
-            for (int j = 0; j<single_int.length; j++) {
+            for (int j = 0; j < single_int.length; j++) {
                 final_edge[i][j] = Integer.parseInt(single_int[j]);
             }
         }
-        
-        int [][] edges = final_edge;
+
+        int[][] edges = final_edge;
 
         this.edges = edges;
-
-        //REFERENCES, ETC, DO NOT REMOVE FOR RESEARCH PURPOSE (except for when submiting W14) -F
-        
-//        EdgeTimer timer = new EdgeTimer(m);
-        //timer start
-        //for(int i=0; i<t; i++) and if not exceed timer
-        //EdgeThread e[i]= new EdgeThread();
-        //e[i].start;
-        
-//        for (int i = 0; i<t; i++) {
-//        ExecutorService executorService = Executors.newFixedThreadPool(t);
-//
-//        EdgeThread synchronizedCounter = new EdgeThread(nodes);
-//
-//        
-//        for(int i = 0; i < 1000; i++) { // i think should include timer here? not sure
-//            executorService.submit(() -> synchronizedCounter.addEdge(nodes));
-//        }
-//
-//        executorService.shutdown();
-//       executorService.awaitTermination(60, TimeUnit.SECONDS);
-//
-//        System.out.println("Final count is : " + synchronizedCounter.getString());
-        
-        
-//            Runnable e1 = new EdgeThread('A', nodes);
-//            Runnable e2 = new EdgeThread('B', nodes);
-//
-//            Thread t1 = new Thread(e1);
-//            Thread t2 = new Thread(e2);
-//            t1.start();
-//            t2.start();
-//        }
-        
-        
-
-        //below is hard coded example
-
-//        int [][] edges = {
-//            {0, 8}, {0, 3}, {0, 5}, {1, 0}, {1, 2}, {1, 3},
-//            {2, 1}, {2, 3}, {2, 4}, {2, 10},
-//            {3, 0}, {3, 1}, {3, 2}, {3, 4}, {3, 5},
-//            {4, 2}, {4, 3}, {4, 5}, {4, 7}, {4, 8}, {4, 10},
-//            {5, 0}, {5, 3}, {5, 4}, {5, 6}, {5, 7},
-//            {6, 5}, {6, 7}, {7, 4}, {7, 5}, {7, 6}, {7, 8},
-//            {8, 4}, {8, 7}, {8, 9}, {8, 10}, {8, 11},
-//            {9, 8}, {9, 11}, {10, 2}, {10, 4}, {10, 8}, {10, 11},
-//            {11, 8}, {11, 9}, {11, 10}  
-//          };
-
     }
 
     public int[][] getEdges() {
-      return this.edges; 
-    }    
-
+        return this.edges;
+    }
 
 }
